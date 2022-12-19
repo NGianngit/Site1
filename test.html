@@ -1,0 +1,90 @@
+<html>
+    <body>
+        <ul id ="list">
+
+        </ul>
+        <script src = "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
+        <script src ="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
+        <script src ="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+
+        <script id = "Mainscript">
+            
+
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyB4wtT_QMSbR2ld8GZ1vUDZuuhfHjyrmjY",
+                authDomain: "dda-itd-asg2-7af51.firebaseapp.com",
+                databaseURL: "https://dda-itd-asg2-7af51-default-rtdb.asia-southeast1.firebasedatabase.app",
+                projectId: "dda-itd-asg2-7af51",
+                storageBucket: "dda-itd-asg2-7af51.appspot.com",
+                messagingSenderId: "684813493760",
+                appId: "1:684813493760:web:4f4e3e0eeb9d7147aedae5"
+            };
+
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            
+            var playerNo = 0;
+
+            function addItemsToList(){
+                var ul = document.getElementById('list');
+                var header = document.createElement('h2');
+
+                var _createdOn = document.createElement('li');
+                var _lvl = document.createElement('li');
+                var _numberOfThingsShot = document.createElement('li');
+                var _numberOfTries = document.createElement('li');
+                var _shortestTimeTaken = document.createElement('li');
+                var _totalTimeSpent = document.createElement('li');
+                var _updatedOn = document.createElement('li');
+                var _userName = document.createElement('li');
+                var _xp = document.createElement('li');
+
+                header.innerHTML = "Student-"+ (++stdNo);
+
+                _createdOn.innerHTML = 'createdOn: '+createdOn;
+                _lvl.innerHTML = "lvl: "+lvl;
+                _numberOfThingsShot.innerHTML = 'numberOfThingsShot: '+ numberOfThingsShot;
+                _numberOfTries = "numberOfTries: "+ numberOfTries;
+                _shortestTimeTaken = "shortestTimeTaken: "+ shortestTimeTaken;
+                _totalTimeSpent = 'totalTimeSpent: '+ totalTimeSpent;
+                _updatedOn = 'updatedOn: '+ updateOn;
+                _userName = 'username: '+ userName;
+                _xp = 'xp: '+ xp;
+
+                ul.appendChild(header);
+                ul.appendChild(_createdOn);
+                ul.appendChild(_lvl);
+                ul.appendChild(_numberOfThingsShot);
+                ul.appendChild(_numberOfTries);
+                ul.appendChild(_shortestTimeTaken);
+                ul.appendChild(_totalTimeSpent);
+                ul.appendChild(_updatedOn);
+                ul.appendChild(_userName);
+                ul.appendChild(_xp);
+                
+            }
+
+            function FetchAllData(){
+                firebase.database().ref('student').once('value',function(snapshot){
+                    snapshot.forEach(
+                        function(ChildSnapshot){
+                            let createdOn = ChildSnapshot.val().CreatedOn;
+                            let lvl = ChildSnapshot.val().Lvl;
+                            let numberOfThingsShot= ChildSnapshot.val().NumberOfThingsShot;
+                            let numberOfTries = ChildSnapshot.val().NumberOfTries;
+                            let shortestTimeTaken = ChildSnapshot.val().ShortestTimeTaken;
+                            let totalTimeSpent = ChildSnapshot.val().TotalTimeSpent;
+                            let updatedOn = ChildSnapshot.val().UpdateOn;
+                            let userName = ChildSnapshot.val().UserName;
+                            let xp = ChildSnapshot.val().Xp;
+                            addItemsToList(createdOn, lvl, numberOfThingsShot,numberOfTries,shortestTimeTaken,totalTimeSpent,updatedOn,userName,xp);
+                        }
+                    );
+                });
+            }
+
+            window.onload(FetchAllData());
+        </script>
+    </body>
+</html>

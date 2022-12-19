@@ -1,7 +1,13 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword,  createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
-const firebaseConfig = {
+    "https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js";
+
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getAuth ,signInWithEmailAndPassword,  createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import {getDatabase, ref, child, get, set, onValue, orderByChild} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+
+ var firebaseConfig = {
   apiKey: "AIzaSyB4wtT_QMSbR2ld8GZ1vUDZuuhfHjyrmjY",
   authDomain: "dda-itd-asg2-7af51.firebaseapp.com",
   databaseURL: "https://dda-itd-asg2-7af51-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -13,8 +19,9 @@ const firebaseConfig = {
 
  const app = initializeApp(firebaseConfig);
  const auth = getAuth(app);
+ const database = getDatabase();
 
-
+ //auth user
   document.getElementById("reg-btn").addEventListener('click', function(){
    document.getElementById("register-div").style.display="inline";
    document.getElementById("login-div").style.display="none";
@@ -29,6 +36,7 @@ document.getElementById("log-btn").addEventListener('click', function(){
   document.getElementById("login-btn").addEventListener('click', function(){
    const loginEmail= document.getElementById("login-email").value;
    const loginPassword =document.getElementById("login-password").value;
+
 
    signInWithEmailAndPassword(auth, loginEmail, loginPassword)
   .then((userCredential) => {
@@ -79,25 +87,32 @@ document.getElementById("log-out-btn").addEventListener('click', function(){
   });
 
 });
-var xValues = [50,60,70,80,90,100,110,120,130,140,150];
-var yValues = [7,8,8,9,9,9,10,11,14,14,15];
+/////////////////////////////////////////////////////////////////////////////////
+//database
+let player ={
+  "userName" : userName,
+  "recentTimeTaken" : recentTimeTaken,
+  "xp": xp, 
+  "shortestTimeTaken" :shortestTimeTaken,
+  "lvl" : lvl,
+  "numberOfTries" : numberOfTries,
+  "numberOfThingsShot" : numberOfThingsShot,
+  "totalTimeSpent" : totalTimeSpent,
+  "updatedOn" : updatedOn,
+  "createdOn" : createdOn
+}
 
-new Chart("myChart", {
-  type: "line",
-  data: {
-    labels: xValues,
-    datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
-      data: yValues
-    }]
-  },
-  options: {
-    legend: {display: false},
-    scales: {
-      yAxes: [{ticks: {min: 6, max:16}}],
-    }
+
+var dbPlayer  = firebase.datebase().ref().child("playerStats");
+
+dbPlayer.on("value",function(player){
+  if(player.exists()){
+     var playerHTML = "";
+     player.forEach(function(singlePlayer){
+
+     })
   }
-});
+})
+
+
+/////////////////////////////////////////////////////////////////////////////////
