@@ -31,6 +31,16 @@ body{
   background-color: white;
   color:rgb(87, 87, 87);
 }
+.other-logbtn-style{
+  padding: 10px 30px;
+  position: absolute;
+  bottom:88%;
+  left:92%;
+  border:1px solid white;
+  border-radius: 20px;
+  background-color: white;
+  color:rgb(87, 87, 87);
+}
 .btn-style{
   padding: 10px 30px;
   border:1px solid white;

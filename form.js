@@ -1,13 +1,11 @@
 
-    "https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js";
-
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getAuth ,signInWithEmailAndPassword,  createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-import {getDatabase, ref, child, get, set, onValue, orderByChild} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+import { getAuth,setPersistence,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
 
- var firebaseConfig = {
+
+const firebaseConfig = {
   apiKey: "AIzaSyB4wtT_QMSbR2ld8GZ1vUDZuuhfHjyrmjY",
   authDomain: "dda-itd-asg2-7af51.firebaseapp.com",
   databaseURL: "https://dda-itd-asg2-7af51-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -17,11 +15,20 @@ import {getDatabase, ref, child, get, set, onValue, orderByChild} from "https://
   appId: "1:684813493760:web:4f4e3e0eeb9d7147aedae5"
 };
 
- const app = initializeApp(firebaseConfig);
- const auth = getAuth(app);
- const database = getDatabase();
+
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+//[STEP 1] Get our database reference
+
+
+/////////////////////////////////////////////////////////////////////////////////
 
  //auth user
+ const auth = getAuth(app);
+ //firebase.auth.Auth.Persistence.SESSION;
+
+ 
   document.getElementById("reg-btn").addEventListener('click', function(){
    document.getElementById("register-div").style.display="inline";
    document.getElementById("login-div").style.display="none";
@@ -85,34 +92,6 @@ document.getElementById("log-out-btn").addEventListener('click', function(){
   }).catch((error) => {
      document.getElementById("result").innerHTML="Sorry ! <br>"+errorMessage;
   });
-
 });
 /////////////////////////////////////////////////////////////////////////////////
-//database
-let player ={
-  "userName" : userName,
-  "recentTimeTaken" : recentTimeTaken,
-  "xp": xp, 
-  "shortestTimeTaken" :shortestTimeTaken,
-  "lvl" : lvl,
-  "numberOfTries" : numberOfTries,
-  "numberOfThingsShot" : numberOfThingsShot,
-  "totalTimeSpent" : totalTimeSpent,
-  "updatedOn" : updatedOn,
-  "createdOn" : createdOn
-}
 
-
-var dbPlayer  = firebase.datebase().ref().child("playerStats");
-
-dbPlayer.on("value",function(player){
-  if(player.exists()){
-     var playerHTML = "";
-     player.forEach(function(singlePlayer){
-
-     })
-  }
-})
-
-
-/////////////////////////////////////////////////////////////////////////////////
