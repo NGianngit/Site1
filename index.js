@@ -53,36 +53,38 @@ function getPlayerData() {
                 var Updated = "";
                 var Level = "";
                
-
+                const userkey = localStorage.getItem("key");
                 // var dbCurrentPlayer = firebase.database().ref().child("players").orderByChild("uid").equalTo(user);
                 snapshot.forEach((childSnapshot) => {
                     //looping through each snapshot
                     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
-                    
-                    UserName += `<tr>
-                    <td>UserName: ${childSnapshot.child("userName").val()}</td>
-                    </tr>`;
-                    Shortest += `<tr>
-                    <td>Shortest Time Taken: ${childSnapshot.child("shortestTimeTaken").val()}</td>
-                    </tr>`;
-                    Recent += `<tr>
-                    <td>Recent Time Taken: ${childSnapshot.child("recentTimeTaken").val()}</td>
-                    </tr>`;
-                    Shots += `<tr>
-                    <td>Number of Things destroyed: ${childSnapshot.child("numberOfThingsShot").val()}</td>
-                    </tr>`;
-                    Tries += `<tr>
-                    <td>Number of tries: ${childSnapshot.child("numberOfTries").val()}</td>
-                    </tr>`;
-                    Played += `<tr>
-                    <td>Total Time Played: ${childSnapshot.child("totalTimeSpent").val()} secs</td>
-                    </tr>`;
-                    Updated += `<tr>
-                    <td>Last played On: ${ new Date(childSnapshot.child("updatedOn").val() * 1000)}</td>
-                    </tr>`;
-                    Level += `<tr>
-                    <td>level: ${childSnapshot.child("lvl").val()}</td>
-                    </tr>`;
+                    console.log("User key: " + childSnapshot.key);
+                    if (childSnapshot.key == userkey){
+                        UserName += `<tr>
+                        <td>UserName: ${childSnapshot.child("userName").val()}</td>
+                        </tr>`;
+                        Shortest += `<tr>
+                        <td>Shortest Time Taken: ${childSnapshot.child("shortestTimeTaken").val()}</td>
+                        </tr>`;
+                        Recent += `<tr>
+                        <td>Recent Time Taken: ${childSnapshot.child("recentTimeTaken").val()}</td>
+                        </tr>`;
+                        Shots += `<tr>
+                        <td>Number of Things destroyed: ${childSnapshot.child("numberOfThingsShot").val()}</td>
+                        </tr>`;
+                        Tries += `<tr>
+                        <td>Number of tries: ${childSnapshot.child("numberOfTries").val()}</td>
+                        </tr>`;
+                        Played += `<tr>
+                        <td>Total Time Played: ${childSnapshot.child("totalTimeSpent").val()} secs</td>
+                        </tr>`;
+                        Updated += `<tr>
+                        <td>Last played On: ${ new Date(childSnapshot.child("updatedOn").val() * 1000)}</td>
+                        </tr>`;
+                        Level += `<tr>
+                        <td>level: ${childSnapshot.child("lvl").val()}</td>
+                        </tr>`;
+                    }
                 });
                 //update our table content
                 playerName.innerHTML = UserName;

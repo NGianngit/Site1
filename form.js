@@ -47,7 +47,9 @@ document.getElementById("log-btn").addEventListener('click', function(){
 
    signInWithEmailAndPassword(auth, loginEmail, loginPassword)
   .then((userCredential) => {
-    const user = userCredential.user;
+    const user = userCredential.user.uid;
+    console.log(user);
+    localStorage.setItem("key",userCredential.user.uid);
     document.getElementById("result-box").style.display="inline";
      document.getElementById("login-div").style.display="none";
      document.getElementById("result").innerHTML="Welcome Back<br>"+loginEmail+" was Login Successfully";
